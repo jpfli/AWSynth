@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>AW Patch Editor</title>
+    <link rel="stylesheet" href="editor.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row" id="button-row" style="text-align: center; display: none;">
+        <br>
+        <button id="load-button" style="margin: 0px 20px;" title="Load patch from a file" onclick="document.getElementById('fileinput-load').click();">
+          Load
+          <input id="fileinput-load" type="file" name="file" style="display: none" />
+        </button>
+        <button id="save-button" style="margin: 0px 20px;" title="Save patch to a file">
+          Save
+        </button>
+      </div>
+      
+      <br>
+      
+      <div class="row">
+        <div class="column" style="width: 30%;">
+          <label title="Master volume">Volume<input type="number" id="volume" min="0" max="100" onchange="volumeChanged()" /></label>
+        </div>
+        
+        <div class="column" style="width: 30%;">
+          <label title="Step duration in 1/120 seconds">Step<input type="number" id="stepsize" min="1" max="255" onchange="stepChanged()" /></label>
+        </div>
+        
+        <div class="column" style="width: 40%;">
+          <label>Loop<input type="number" id="loop_start" title="Loop start" min="0" max="32" onchange="loopChanged()" /></label>
+          <input type="number" id="env_length" title="Envelope length" min="0" max="32" onchange="loopChanged()" />
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="column" style="width: 30%;">
+          <label title="Release time in steps">Release<input type="number" id="release" min="0" max="255" onchange="releaseChanged()" /></label>
+        </div>
+        
+        <div class="column" style="width: 30%;">
+          <label title="Pitch glide time in steps (0 to disable)">Glide<input type="number" id="glide" min="0" max="255" onchange="glideChanged()" /></label>
+        </div>
+      </div>
+      
+      <br>
+      
+      <div class="row">
+        <div class="column" style="width: 25%;">
+          <b>WAVEFORM</b>
+        </div>
+        
+        <div class="column" style="width: 75%;">
+          <div id="waveforms">
+            <span class="item" title="Square (double-click to set all)" onclick="waveformSelected('square')" ondblclick="waveformSet('square')"><div id="square"></div></span>
+            <span class="item" title="Pulse (double-click to set all)" onclick="waveformSelected('pulse')" ondblclick="waveformSet('pulse')"><div id="pulse"></div></span>
+            <span class="item" title="Sawtooth (double-click to set all)" onclick="waveformSelected('sawtooth')" ondblclick="waveformSet('sawtooth')"><div id="sawtooth"></div></span>
+            <span class="item" title="Softsaw (double-click to set all)" onclick="waveformSelected('softsaw')" ondblclick="waveformSet('softsaw')"><div id="softsaw"></div></span>
+            <span class="item" title="Triangle (double-click to set all)" onclick="waveformSelected('triangle')" ondblclick="waveformSet('triangle')"><div id="triangle"></div></span>
+            <span class="item" title="Sine (double-click to set all)" onclick="waveformSelected('sine')" ondblclick="waveformSet('sine')"><div id="sine"></div></span>
+            <span class="item" title="Noise (double-click to set all)" onclick="waveformSelected('noise')" ondblclick="waveformSet('noise')"><div id="noise"></div></span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <canvas id="waveform-canvas" class="envelope-canvas" width="128" height="4"></canvas>
+      </div>
+      
+      <br>
+      
+      <div class="row">
+        <div class="column" style="width: 30%;">
+          <b>PITCH</b>
+        </div>
+        
+        <div class="column" style="width: 70%;">
+          <div id="pitch-effects" class="tools">
+            <span class="item" title="Step (double-click to set all)" onclick="pitchEffectSelected('step')" ondblclick="pitchEffectSet('step')"><div id="step"></div></span>
+            <span class="item" title="Attack (double-click to set all)" onclick="pitchEffectSelected('attack')" ondblclick="pitchEffectSet('attack')"><div id="attack"></div></span>
+            <span class="item" title="Decay (double-click to set all)" onclick="pitchEffectSelected('decay')" ondblclick="pitchEffectSet('decay')"><div id="decay"></div></span>
+            <span class="item" title="Slide (double-click to set all)" onclick="pitchEffectSelected('slide')" ondblclick="pitchEffectSet('slide')"><div id="slide"></div></span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <canvas id="pitchenv-canvas" class="envelope-canvas" width="128" height="64"></canvas>
+      </div>
+      
+      <br>
+      
+      <div class="row">
+        <div class="column" style="width: 30%;">
+          <b>AMPLITUDE</b>
+        </div>
+        
+        <div class="column" style="width: 70%;">
+          <div id="amplitude-effects" class="tools">
+            <span class="item" title="Step (double-click to set all)" onclick="amplitudeEffectSelected('step')" ondblclick="amplitudeEffectSet('step')"><div id="step"></div></span>
+            <span class="item" title="Attack (double-click to set all)" onclick="amplitudeEffectSelected('attack')" ondblclick="amplitudeEffectSet('attack')"><div id="attack"></div></span>
+            <span class="item" title="Decay (double-click to set all)" onclick="amplitudeEffectSelected('decay')" ondblclick="amplitudeEffectSet('decay')"><div id="decay"></div></span>
+            <span class="item" title="Slide (double-click to set all)" onclick="amplitudeEffectSelected('slide')" ondblclick="amplitudeEffectSet('slide')"><div id="slide"></div></span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <canvas id="ampenv-canvas" class="envelope-canvas" width="128" height="18"></canvas>
+      </div>
+      
+      <br>
+      
+      <div class="row">
+        <div id="pianokeyb-container">
+          <div id="pianokeyb"></div>
+        </div>
+      </div>
+      
+      <br>
+    </div>
+
+    <script src="editor.js"></script>
+  </body>
+</html>
+
