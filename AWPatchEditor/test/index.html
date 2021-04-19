@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    function startBytebeatGenerator() {
+      const context = new AudioContext();
+      context.audioWorklet.addModule('./bytebeat-generator.js')
+        .then(() => {
+          const bytebeatGenerator = new AudioWorkletNode(context, 'BytebeatGenerator');
+          bytebeatGenerator.connect(context.destination);
+        })
+        .catch(err => {
+            console.log(err);
+            return;
+        });
+    }
+  </script>
+</head>
+<body>
+  <button onclick="startBytebeatGenerator()">Start Bytebeat Generator</button>
+</body>
+</html>
