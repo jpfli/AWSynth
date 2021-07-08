@@ -894,7 +894,7 @@ window.onload = function (event) {
     });
     
     document.querySelector('#save-button').addEventListener('click', () => {
-        const content = JSON.stringify(awpatch);
+        const content = JSON.stringify(awpatch, null, 4);
 
         const a = document.createElement('a');
         const file = new Blob([content], {type: 'application/json'});
