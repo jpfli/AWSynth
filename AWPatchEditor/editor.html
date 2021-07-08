@@ -50,17 +50,25 @@
       <div class="row">
         <div class="column" style="width: 25%;">
           <b>WAVEFORM</b>
+          <div class="tooltip">?
+            <span class="tooltiptext">
+              <b>Waveform selector shows which waveform is used for each of the 32 steps</b>
+              <ul><li>Click to select one of the waveform tools on the right</li>
+              <li>Use mouse to paint individual steps in the waveform view to apply the selected waveform</li>
+              <li>Double-click the tool to automatically paint all the steps</li></ul>
+            </span>
+          </div>
         </div>
         
         <div class="column" style="width: 75%;">
           <div id="waveforms">
-            <span class="item" title="Square (double-click to set all)" onclick="waveformSelected('square')" ondblclick="waveformSet('square')"><div id="square"></div></span>
-            <span class="item" title="Pulse (double-click to set all)" onclick="waveformSelected('pulse')" ondblclick="waveformSet('pulse')"><div id="pulse"></div></span>
-            <span class="item" title="Sawtooth (double-click to set all)" onclick="waveformSelected('sawtooth')" ondblclick="waveformSet('sawtooth')"><div id="sawtooth"></div></span>
-            <span class="item" title="Softsaw (double-click to set all)" onclick="waveformSelected('softsaw')" ondblclick="waveformSet('softsaw')"><div id="softsaw"></div></span>
-            <span class="item" title="Triangle (double-click to set all)" onclick="waveformSelected('triangle')" ondblclick="waveformSet('triangle')"><div id="triangle"></div></span>
-            <span class="item" title="Sine (double-click to set all)" onclick="waveformSelected('sine')" ondblclick="waveformSet('sine')"><div id="sine"></div></span>
-            <span class="item" title="Noise (double-click to set all)" onclick="waveformSelected('noise')" ondblclick="waveformSet('noise')"><div id="noise"></div></span>
+            <span class="item" title="Square" onclick="waveformSelected('square')" ondblclick="waveformSet('square')"><div id="square"></div></span>
+            <span class="item" title="Pulse" onclick="waveformSelected('pulse')" ondblclick="waveformSet('pulse')"><div id="pulse"></div></span>
+            <span class="item" title="Sawtooth" onclick="waveformSelected('sawtooth')" ondblclick="waveformSet('sawtooth')"><div id="sawtooth"></div></span>
+            <span class="item" title="Softsaw" onclick="waveformSelected('softsaw')" ondblclick="waveformSet('softsaw')"><div id="softsaw"></div></span>
+            <span class="item" title="Triangle" onclick="waveformSelected('triangle')" ondblclick="waveformSet('triangle')"><div id="triangle"></div></span>
+            <span class="item" title="Sine" onclick="waveformSelected('sine')" ondblclick="waveformSet('sine')"><div id="sine"></div></span>
+            <span class="item" title="Noise" onclick="waveformSelected('noise')" ondblclick="waveformSet('noise')"><div id="noise"></div></span>
           </div>
         </div>
       </div>
@@ -74,20 +82,31 @@
       <div class="row">
         <div class="column" style="width: 30%;">
           <b>PITCH</b>
+          <div class="tooltip">?
+            <span class="tooltiptext">
+              <b>Pitch envelope shows the pitch bend amount for each of the 32 steps</b>
+              <ul><li>Click and hold mouse button in the pitch envelope view to adjust the pitch bend amount in one semitone increments</li>
+              <li>Pitch bend range is from -32 to +31 semitones.</li></ul>
+              <br>
+              <b>You can select an effect by clicking one of the four effect tools</b>
+              <ul><li>The effect is applied for the step when you adjust its pitch bend amount</li>
+              <li>Double-click the tool to apply the effect for all the steps</li></ul>
+            </span>
+          </div>
         </div>
         
         <div class="column" style="width: 70%;">
           <div id="pitch-effects" class="tools">
-            <span class="item" title="Step (double-click to set all)" onclick="pitchEffectSelected('step')" ondblclick="pitchEffectSet('step')"><div id="step"></div></span>
-            <span class="item" title="Attack (double-click to set all)" onclick="pitchEffectSelected('attack')" ondblclick="pitchEffectSet('attack')"><div id="attack"></div></span>
-            <span class="item" title="Decay (double-click to set all)" onclick="pitchEffectSelected('decay')" ondblclick="pitchEffectSet('decay')"><div id="decay"></div></span>
-            <span class="item" title="Slide (double-click to set all)" onclick="pitchEffectSelected('slide')" ondblclick="pitchEffectSet('slide')"><div id="slide"></div></span>
+            <span class="item" title="Step (constant value, no slide)" onclick="pitchEffectSelected('step')" ondblclick="pitchEffectSet('step')"><div id="step"></div></span>
+            <span class="item" title="Attack (ramp from zero to the set value)" onclick="pitchEffectSelected('attack')" ondblclick="pitchEffectSet('attack')"><div id="attack"></div></span>
+            <span class="item" title="Decay (ramp from the set value to zero)" onclick="pitchEffectSelected('decay')" ondblclick="pitchEffectSet('decay')"><div id="decay"></div></span>
+            <span class="item" title="Slide (slide from the previous value to the set value)" onclick="pitchEffectSelected('slide')" ondblclick="pitchEffectSet('slide')"><div id="slide"></div></span>
           </div>
         </div>
       </div>
       
       <div class="row">
-        <canvas id="pitchenv-canvas" class="envelope-canvas" width="128" height="64"></canvas>
+        <canvas id="pitchenv-canvas" class="envelope-canvas" width="128" height="65"></canvas>
       </div>
       
       <br>
@@ -95,14 +114,24 @@
       <div class="row">
         <div class="column" style="width: 30%;">
           <b>AMPLITUDE</b>
+          <div class="tooltip">?
+            <span class="tooltiptext">
+              <b>Amplitude envelope shows the amplitude level for each of the 32 steps</b>
+              <ul><li>Click and hold mouse button in the amplitude envelope view to adjust the amplitude level</li></ul>
+              <br>
+              <b>You can select an effect by clicking one of the four effect tools</b>
+              <ul><li>The effect is applied for the step when you adjust its amplitude level</li>
+              <li>Double-click the tool to apply the effect for all the steps</li></ul>
+            </span>
+          </div>
         </div>
         
         <div class="column" style="width: 70%;">
           <div id="amplitude-effects" class="tools">
-            <span class="item" title="Step (double-click to set all)" onclick="amplitudeEffectSelected('step')" ondblclick="amplitudeEffectSet('step')"><div id="step"></div></span>
-            <span class="item" title="Attack (double-click to set all)" onclick="amplitudeEffectSelected('attack')" ondblclick="amplitudeEffectSet('attack')"><div id="attack"></div></span>
-            <span class="item" title="Decay (double-click to set all)" onclick="amplitudeEffectSelected('decay')" ondblclick="amplitudeEffectSet('decay')"><div id="decay"></div></span>
-            <span class="item" title="Slide (double-click to set all)" onclick="amplitudeEffectSelected('slide')" ondblclick="amplitudeEffectSet('slide')"><div id="slide"></div></span>
+            <span class="item" title="Step (constant value, no slide)" onclick="amplitudeEffectSelected('step')" ondblclick="amplitudeEffectSet('step')"><div id="step"></div></span>
+            <span class="item" title="Attack (ramp from zero to the set value)" onclick="amplitudeEffectSelected('attack')" ondblclick="amplitudeEffectSet('attack')"><div id="attack"></div></span>
+            <span class="item" title="Decay (ramp from the set value to zero)" onclick="amplitudeEffectSelected('decay')" ondblclick="amplitudeEffectSet('decay')"><div id="decay"></div></span>
+            <span class="item" title="Slide (slide from the previous value to the set value)" onclick="amplitudeEffectSelected('slide')" ondblclick="amplitudeEffectSet('slide')"><div id="slide"></div></span>
           </div>
         </div>
       </div>
