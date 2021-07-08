@@ -216,3 +216,59 @@ input[type=checkbox] {
   user-select: none; -moz-user-select: none; -webkit-user-select: none;
 }
 
+/*.tooltip{
+  position: relative;
+  background: rgba(255,255,255,0.3);
+  padding: 2px 6px;
+  border-radius: 100%;
+  cursor: help;
+}*/
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 6px;
+  background: #257179;
+  border-radius: 100%;
+  cursor: default;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 320px;
+  background-color: var(--text-color);
+  color: var(--text-bg-color);
+  /*text-align: center;*/
+  padding: 5px 5px;
+  border-radius: 3px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 2;
+  top: 100%;
+  left: 50%;
+  margin-left: -40px;
+  margin-top: 5px;
+}
+
+.tooltip .tooltiptext::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%;  /* At the top of the tooltip */
+  left: 40px;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent var(--text-color) transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+ul {
+  padding: 0 0 0 15px;
+}
